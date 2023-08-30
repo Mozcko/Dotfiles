@@ -1,0 +1,122 @@
+{
+  "hybrid": {
+    "cava_sed": "s/;//g;s/0/▁ /g;s/1/▂ /g;s/2/▃ /g;s/3/▄ /g;s/4/▅ /g;s/5/▆ /g;s/6/▇ /g;s/7/█/g;",
+    "stylesheet": "style.css",
+    "cava_update_rate": 5,
+    "cava_framerate": 360,
+    "expand_right": true,
+    "experimental": true,
+    "expand_left": true,
+    "cava_bars": 7,
+    "r": 10,
+    "g": 10,
+    "b": 10,
+    "a": 0.5
+  },
+  "variables": {
+    "@volume": "echo $(pactl get-sink-volume @DEFAULT_SINK@ | rg -o '[0-9]{1,3}%' | head -n 1 | cut -d '%' -f 1)%",
+    "@get": "jq -r",
+    "$+s": "<small>",
+    "$-s": "</small>"
+  },
+  "left-spacing_start_gap": {
+    "spacing_start": 5
+  },
+  "left-button_logo": {
+    "text": " ",
+    "command": "wofi --show drun",
+    "tooltip": "Search"
+  },
+  "left-spacing_start_gap_2": {
+    "spacing_start": 10
+  },
+  "left-label_using_workspaces": {
+    "text": "",
+    "command": "hyprctl -j workspaces | jq '.[] .id' | sort -n | tr '\n' ' '",
+    "update_rate": 5000
+  },
+  "left-spacing_start_gap_3": {
+    "spacing_start": 10
+  },
+  "left-label_CPU_usage":{
+    "text": "  ",
+    "command":"echo $[100-$(vmstat 1 2|tail -1|awk '{print $15}')]%",
+    "update_rate": 5000
+  },
+  "left-spacing_start_gap_4": {
+    "spacing_start": 10
+  },
+  "left-label_MEM_usage":{
+    "text": "  ",
+    "command":"echo $(free | grep Mem | awk '{x = $3/$2 * 100.0; printf(substr(x, 0,5))}')%",
+    "update_rate": 5000
+  },
+  "left-spacing_start_gap_5": {
+    "spacing_start": 10
+  },
+  "left-label_DISK_usage":{
+    "text": "󰋊 ",
+    "command":"df -h /dev/sda2 | grep / | awk '{print $5}'",
+    "update_rate": 5000
+  },
+  "left-spacing_start_gap_6": {
+    "spacing_start": 10
+  },
+  "left-label_current-window": {
+    "command": "hyprctl activewindow -j | @get '.title'",
+    "tooltip": "Currently on: ",
+    "tooltip_command": "hyprctl -j activeworkspace | jq '.id' ",
+    "update_rate": 5000
+  },
+  "left-spacing_start_gap_7": {
+    "spacing_start": 10
+  },
+  "centered-button_updates":{
+    "text":"  ",
+    "command": "~/.config/waybar/scripts/update-sys update"
+  },
+  "centered-label_time": {
+    "command": "date '+%a %d %b  %I:%M'",
+    "update_rate": 5000
+  },
+  "right-tray_tray": {},
+  "right-button_wifi": {
+    "text":" ",
+    "command": "nm-connection-editor & disown"
+  },
+  "right-button_blueman": {
+    "text":" ",
+    "command": "blueman-manager & disown"
+  },
+  "right-label_battery": {
+    "text":"󰁹",
+    "command": "acpi | awk -F',' '{print $2}'",
+    "tooltip_command": "acpi | awk '{print substr($0, 12, 50)}'"
+  },
+  "right-spacing_battery": {
+    "spacing_start": 8
+  },
+  "right-button_vol": {
+    "text": " ",
+    "command": "pavucontrol"
+  },
+  "right-label_volume":{
+    "text":"",
+    "command": "@volume"
+  },
+  "right-spacing_vol": {
+    "spacing_start": 10
+  },
+  "right-cava_IDC":{},
+  "right-spacing_color": {
+    "spacing_start": 10
+  },
+  "right-button_color": {
+    "text": "󰐾 ",
+    "command": "~/.config/waybar/scripts/baraction light"
+  },
+  "right-spacing_menu": {
+    "spacing_start": 10
+  },
+  "right-spacing_extend": {}
+}
